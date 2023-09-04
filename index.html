@@ -1,0 +1,88 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/vue@3.0.2"></script>
+    <title>Learning Vue</title>
+    <style>
+        .box {
+            padding: 100px 0;
+            width: 400px;
+            background: #ddd;
+            text-align: center;
+            margin: 20px;
+            display: inline-block;
+        }
+        li {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+            margin: 20px;
+            border-radius: 10px;
+        }
+        li.fav {
+            background: #ff9ed2;
+            color: white;
+        }
+        li img {
+            height: 100px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Hello Vue !! </h1>
+    
+
+    <div id="app">
+        <p>{{ title }} - {{ author }} - {{ style }} - {{ sells }}</p>
+
+        <!-- @click -->
+        <button @click="sells++">increase sells</button>
+        <button @click="sells--">decrease sells</button>
+        <div @click="changeTitle">Change title</div>
+        <div @click="changeTitleTo('aa')">Change title to aa</div>
+
+        <!-- v-if / v-else -->
+        <button @click="toggleShowInfo">
+            <span v-if="showInfo">Hide Info</span>
+            <span v-else>Show Info</span>
+        </button>
+        <div v-if="showInfo">Conditional rendering</div>
+        
+        <!-- v-show -->
+        <div v-show="showInfo">Currently showing info</div>
+
+        <br>
+        <!-- list -->
+        <div v-if="books">
+            <ul>
+                <li v-for="book in books" :class="{ fav: book.isFav }" @click="toggleFav(book)">
+                    <img :src="book.img" :alt="book.title">
+                    <h3>{{ book.title }}</h3>
+                    <p>{{ book.author }}</p>
+                </li>
+            </ul>
+        </div>
+
+        <!-- attribute binding -->
+        <a :href="url" target="_blank">My Github profile</a>
+
+        <br>
+        <!-- mouse events-->
+        <div class="box" @mouseover="handleEvent($event, 5)">mouseover (enter)</div>
+        <div class="box" @mouseleave="handleEvent">mouseleave</div>
+        <div class="box" @dblclick="handleEvent">double click</div>
+        <div class="box" @mousemove="handleMouseMove">position = {{ x }}, {{ y }}</div>
+
+        <br>
+        <span>favorites books : </span>
+        <ul>
+            <li v-for="book in filteredBooks">{{ book.title }} </li> 
+        </ul>
+        
+
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
